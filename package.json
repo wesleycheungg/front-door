@@ -1,0 +1,19 @@
+{
+  "name": "front-door",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Front Door: a themeable website template for apartment communities",
+  "author": "Wesley Cheung",
+  "scripts": {
+    "start": "http-server . -p 8080 -c-1",
+    "test": "playwright test",
+    "test:chrome": "playwright test --project=desktop-chrome --project=phone-chrome",
+    "test:update-screenshots": "playwright test visual --update-snapshots",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "1.63.0",
+    "http-server": "^14.1.1"
+  }
+}

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apartments</title>
+
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <!--
+    HOW THIS PAGE WORKS
+    data-field="name"  →  filled with that value from the property file
+    id="...List"       →  filled with a list (cards, buttons) by js/site.js
+    Nothing on this page is specific to one property.
+  -->
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Special banner -->
+  <div class="promo">
+    <span class="promo-label" data-field="special.label"></span>
+    <span data-field="special.text"></span>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg container-wide" aria-label="Main">
+      <a class="logo" href="#main">
+        <span class="logo-main" data-field="logo.main"></span>
+        <span class="logo-sub" data-field="logo.sub"></span>
+      </a>
+      <button class="menu-button d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Open menu">
+        <span data-icon="menu"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainMenu">
+        <ul class="nav-links">
+          <li><a href="#plans">Floor plans</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#amenities">Amenities</a></li>
+          <li><a href="#neighborhood">Neighborhood</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a class="phone-link js-phone" data-field="phone"></a>
+          <a class="button d-none d-lg-inline-flex" href="#tour">Book a tour</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-photo js-photo" data-photo="hero"></div>
+      <div class="hero-text container-wide">
+        <p class="eyebrow eyebrow-light" data-field="location"></p>
+        <h1 id="heroTitle" data-field="headline"></h1>
+        <p class="hero-intro" data-field="intro"></p>
+      </div>
+    </section>
+
+    <!-- Search bar: bedroom buttons are built from the floor plans -->
+    <div class="container-wide search-wrap">
+      <form class="search-bar" id="searchForm" aria-label="Search availability">
+        <fieldset class="search-beds">
+          <legend>Bedrooms</legend>
+          <div class="bed-buttons" id="bedButtonList"></div>
+        </fieldset>
+        <div class="search-field d-none d-lg-flex">
+          <label for="maxRent">Max rent</label>
+          <select id="maxRent"></select>
+        </div>
+        <button class="button search-submit" type="submit" id="searchButton">Show homes</button>
+      </form>
+    </div>
+
+    <!-- Quick facts -->
+    <section class="container-wide facts" aria-label="Highlights">
+      <ul id="factList"></ul>
+    </section>
+
+    <!-- Floor plans -->
+    <section class="container-wide section" id="plans" aria-labelledby="plansTitle">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Floor plans</p>
+          <h2 id="plansTitle">Find the layout that fits.</h2>
+        </div>
+        <p class="plan-count" id="planCount" aria-live="polite"></p>
+      </div>
+      <div class="card-grid" id="planList"></div>
+    </section>
+
+    <!-- Tour -->
+    <section class="container-wide section" id="tour" aria-labelledby="tourTitle">
+      <div class="split">
+        <div class="photo-box js-photo" data-photo="tour"></div>
+        <div>
+          <p class="eyebrow">Tours</p>
+          <h2 id="tourTitle">Tour on your schedule.</h2>
+          <p class="lead" data-field="tour.intro"></p>
+          <button class="button d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tourPanel">Pick a time</button>
+
+          <!-- Phones: slides up from the bottom. Desktop: shows in place. -->
+          <div class="offcanvas-lg offcanvas-bottom tour-panel" tabindex="-1" id="tourPanel" aria-labelledby="tourPanelTitle">
+            <div class="offcanvas-header d-lg-none">
+              <h2 class="offcanvas-title" id="tourPanelTitle">Book a tour</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tourPanel" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <form class="card tour-form" id="tourForm" aria-label="Book a tour">
+                <div class="segmented" role="group" aria-label="Tour type" id="tourTypeList"></div>
+                <p class="small-note" id="tourNote"></p>
+                <p class="field-label" id="dayLabel">Day</p>
+                <div class="day-buttons" role="group" aria-labelledby="dayLabel" id="dayList"></div>
+                <p class="field-label" id="timeLabel">Time</p>
+                <div class="time-buttons" role="group" aria-labelledby="timeLabel" id="timeList"></div>
+                <button class="button button-full" type="submit" id="tourSubmit" disabled>Pick a time</button>
+                <p class="tour-done" id="tourDone" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="container-wide section" id="pricing" aria-labelledby="pricingTitle">
+      <div class="dark-panel split">
+        <div>
+          <p class="eyebrow eyebrow-light">Pricing</p>
+          <h2 id="pricingTitle">Know your real monthly cost.</h2>
+          <p class="lead">Every recurring fee, listed up front. Pick a plan and add what you need to see your total before you tour.</p>
+          <label class="field-label" for="pricePlan">Floor plan</label>
+          <select id="pricePlan" class="price-plan"></select>
+          <div class="fee-options" id="feeOptionList"></div>
+        </div>
+        <div class="card price-card">
+          <dl class="price-lines" id="priceLineList"></dl>
+          <div class="price-total">
+            <span>Estimated monthly total</span>
+            <strong id="priceTotal" aria-live="polite"></strong>
+          </div>
+          <p class="small-note" data-field="fees.oneTime"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Amenities -->
+    <section class="container-wide section" id="amenities" aria-labelledby="amenitiesTitle">
+      <p class="eyebrow">Amenities</p>
+      <h2 id="amenitiesTitle">Everything close to home.</h2>
+      <div class="split">
+        <div class="photo-box js-photo" data-photo="amenities"></div>
+        <ul class="amenity-list" id="amenityList"></ul>
+      </div>
+    </section>
+
+    <!-- Neighborhood -->
+    <section class="container-wide section" id="neighborhood" aria-labelledby="hoodTitle">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Neighborhood</p>
+          <h2 id="hoodTitle" data-field="neighborhood.headline"></h2>
+          <div class="segmented segmented-small" role="group" aria-label="Travel by" id="travelModeList"></div>
+          <ul class="place-list" id="placeList"></ul>
+        </div>
+        <div class="map" id="map" role="region" aria-label="Map of nearby places"></div>
+      </div>
+    </section>
+
+    <!-- Closing call to action -->
+    <section class="container-wide section closing" aria-labelledby="closingTitle">
+      <div>
+        <h2 id="closingTitle">See it in person.</h2>
+        <p class="lead" data-field="officeHours"></p>
+      </div>
+      <div class="closing-buttons">
+        <a class="button" href="#tour">Book a tour</a>
+        <a class="button button-outline js-phone">Call <span data-field="phone"></span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container-wide footer-grid">
+      <div>
+        <p class="logo-main" data-field="logo.main"></p>
+        <p data-field="address"></p>
+      </div>
+      <ul>
+        <li><a href="#plans">Floor plans</a></li>
+        <li><a href="#pricing">Pricing and fees</a></li>
+        <li><a href="#">Resident portal</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Accessibility statement</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li>Equal Housing Opportunity</li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Phone only: always in thumb reach -->
+  <nav class="action-bar d-lg-none" aria-label="Quick contact">
+    <a class="icon-button js-phone" aria-label="Call"><span data-icon="phone"></span></a>
+    <a class="icon-button js-sms" aria-label="Text"><span data-icon="message"></span></a>
+    <button class="button" type="button" data-bs-toggle="offcanvas" data-bs-target="#tourPanel">Book a tour</button>
+  </nav>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+/*
+  THEMES
+  One block per property. site.css only uses these variables,
+  so changing a brand never means touching the layout.
+  Every text color here passes WCAG AA contrast on its background.
+*/
+
+[data-theme="mesa"] {
+  --brand:        #2f5d50;   /* buttons, links */
+  --brand-dark:   #1f4238;   /* hover */
+  --on-brand:     #ffffff;   /* text on brand colored buttons */
+  --brand-soft:   #e8f0ec;   /* selected backgrounds */
+  --ink:          #172221;   /* main text, dark sections */
+  --muted:        #5a6663;   /* secondary text */
+  --page:         #f7f6f2;   /* page background */
+  --card:         #ffffff;
+  --line:         #e4e1d8;   /* borders */
+  --highlight:    #e9c98b;   /* special badge, small labels on dark */
+  --photo:        #44564f;   /* photo placeholder */
+  --notice-bg:    #f6e8cc;   /* "available soon" badge */
+  --notice-text:  #5c4310;
+  --on-dark-muted: #c9d2ce;  /* secondary text on dark sections */
+
+  --font-heading: "Manrope", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --radius:       16px;      /* cards */
+  --radius-small: 10px;      /* buttons, inputs */
+}
+
+[data-theme="harbor"] {
+  --brand:        #9a3412;
+  --brand-dark:   #7c2d12;
+  --on-brand:     #ffffff;
+  --brand-soft:   #f8ebe0;
+  --ink:          #2b211b;
+  --muted:        #66513f;
+  --page:         #fff8f0;
+  --card:         #ffffff;
+  --line:         #ebd9c7;
+  --highlight:    #f2c98a;
+  --photo:        #6b4a3a;
+  --notice-bg:    #e6eef3;
+  --notice-text:  #1f4a63;
+  --on-dark-muted: #e2d3c4;
+
+  --font-heading: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --radius:       14px;
+  --radius-small: 999px;     /* pill shaped buttons */
+}
