@@ -1,5 +1,9 @@
 # Front Door
 
+[![Tests](https://github.com/wesleycheungg/front-door/actions/workflows/tests.yml/badge.svg)](https://github.com/wesleycheungg/front-door/actions/workflows/tests.yml)
+
+**Live:** [The Mesa](https://wesleycheungg.github.io/front-door/) · [Harborview](https://wesleycheungg.github.io/front-door/?property=harbor)
+
 **A themeable website template for apartment communities.**
 
 A property's website is its real front door. Most renters see it before they ever see the building. Front Door is one set of code that can power that website for any property. You only change one small file with that property's details.
